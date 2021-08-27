@@ -1,0 +1,36 @@
+---
+modules:
+  - .macourts
+  - docassemble.base.util
+  - docassemble.webapp.playground
+---
+mandatory: True
+code: |
+  go_on
+  saved_courts
+  if saved_courts.ready():
+    results
+  else:
+    waiting
+---
+question: Press continue
+field: go_on
+---
+code: |  
+  saved_courts = background_action('bg_task')
+---
+event: save_courts
+code: |
+  save_courts_to_file()
+---
+question: |
+  Still waiting
+field: waiting
+reload: True
+---
+event: results
+question: |
+  Results
+subquestion: |  
+  ${saved_courts.get()}
+  
